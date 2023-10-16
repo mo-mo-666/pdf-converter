@@ -1,15 +1,67 @@
 from pypdf import PdfReader, PdfWriter
+import datetime
+import time
+import os
+from typing import Tuple
 
-reader1 = PdfReader("pdf-unit/data/score.pdf")
-reader2 = PdfReader("pdf-unit/data/sheet.pdf")
-if len(reader1.pages) != len(reader2.pages):
-    print('ページ数が異なります')
-    quit()
 
-# １ページずつ交互に新しいファイルに書き込む
-writer = PdfWriter()
-for i in range(len(reader1.pages)):
-    writer.add_page(reader1.pages[i])
-    writer.add_page(reader2.pages[i])
-with open("pdf-unit/data/unit.pdf", 'wb') as f:
-    writer.write(f)
+def pdf_cross_unitter(pdf1_path: str, pdf2_path: str):
+    reader1 = PdfReader(pdf1_path)
+    reader2 = PdfReader(pdf2_path)
+    if len(reader1.pages) != len(reader2.pages):
+        print('ページ数が異なります')
+        return None
+
+    # １ページずつ交互に新しいファイルに書き込む
+    writer = PdfWriter()
+    for i in range(len(reader1.pages)):
+        writer.add_page(reader1.pages[i])
+        writer.add_page(reader2.pages[i])
+    with open("pdf-unit/data/unit.pdf", 'wb') as f:
+        writer.write(f)
+    return None
+
+
+def read_args() -> Tuple[str, str, str]:
+    NOW = datetime.datetime.now()
+    NOW = f"{NOW.year}{NOW.month:02}{NOW.day:02}{NOW.hour:02}{NOW.minute:02}{NOW.second:02}"
+
+    while True:
+        pdf1_path = input(
+             f"一つ目のpdfのパスを指定してください\n:"
+        )
+        if pdf1_path:
+            ext1 = os.path.splitext(pdf1_path)[1]
+            if not ext1 == ".pdf":
+                pdf1_path = f"{pdf1_path}.pdf"
+            if os.path.exists(pdf1_path):
+                break
+            print(f"{pdf1_path}が存在しません。正しいパスを指定してください。")
+    while True:
+        pdf2_path = input(
+             f"二つ目のpdfのパスを指定してください\n:"
+        )
+        if pdf2_path:
+            ext2 = os.path.splitext(pdf2_path)[1]
+            if not ext2 == ".pdf":
+                pdf2_path = f"{pdf2_path}.pdf"
+            if os.path.exists(pdf2_path):
+                break
+            print(f"{pdf2_path}が存在しません。正しいパスを指定してください。")
+
+    while True:
+        output_path_d = f"{NOW}.pdf"
+        output_path = input(
+            f"出力ファイル名を指定してください。単にエンターを押した場合，{output_path_d}になります\n:"
+        )
+        if output_path:
+            ext_out = os.path.splitext(output_path)[1]
+            if not ext_out == ".pdf":
+                output_path = f"{output_path}.pdf"
+            if os.path.exists(output_path):
+                yn = input("既に存在するパスを指定しています。データは上書きされますが、よろしいですか？(y/n):")
+                if yn == "y":
+                    break
+        else:
+            output_path = output_path_d
+    return pdf1_path, pdf2_path, output_path
