@@ -32,7 +32,7 @@ def read_args() -> Tuple[str, str, str]:
         )
         if pdf1_path:
             ext1 = os.path.splitext(pdf1_path)[1]
-            if not ext1 == ".pdf":
+            if ext1 != ".pdf":
                 pdf1_path = f"{pdf1_path}.pdf"
             if os.path.exists(pdf1_path):
                 break
@@ -43,7 +43,7 @@ def read_args() -> Tuple[str, str, str]:
         )
         if pdf2_path:
             ext2 = os.path.splitext(pdf2_path)[1]
-            if not ext2 == ".pdf":
+            if ext2 != ".pdf":
                 pdf2_path = f"{pdf2_path}.pdf"
             if os.path.exists(pdf2_path):
                 break
@@ -56,7 +56,7 @@ def read_args() -> Tuple[str, str, str]:
         )
         if output_path:
             ext_out = os.path.splitext(output_path)[1]
-            if not ext_out == ".pdf":
+            if ext_out != ".pdf":
                 output_path = f"{output_path}.pdf"
             if os.path.exists(output_path):
                 yn = input("既に存在するパスを指定しています。データは上書きされますが、よろしいですか？(y/n):")
