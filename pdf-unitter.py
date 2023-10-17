@@ -9,7 +9,7 @@ def pdf_cross_unitter(pdf1_path: str, pdf2_path: str, output_path: str) -> bool:
     reader1 = PdfReader(pdf1_path)
     reader2 = PdfReader(pdf2_path)
     if len(reader1.pages) != len(reader2.pages):
-        print('ページ数が異なります')
+        print('ページ数が異なります。ページ数が等しいpdfしか結合できません')
         return False
 
     # １ページずつ交互に新しいファイルに書き込む
