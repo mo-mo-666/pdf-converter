@@ -5,21 +5,21 @@ import os
 from typing import Tuple
 
 
-def pdf_cross_unitter(pdf1_path: str, pdf2_path: str):
+def pdf_cross_unitter(pdf1_path: str, pdf2_path: str, output_path: str) -> bool:
     reader1 = PdfReader(pdf1_path)
     reader2 = PdfReader(pdf2_path)
     if len(reader1.pages) != len(reader2.pages):
         print('ページ数が異なります')
-        return None
+        return False
 
     # １ページずつ交互に新しいファイルに書き込む
     writer = PdfWriter()
-    for i in range(len(reader1.pages)):
-        writer.add_page(reader1.pages[i])
-        writer.add_page(reader2.pages[i])
-    with open("pdf-unit/data/unit.pdf", 'wb') as f:
+    for r1, r2 in zip(reader1.pages, reader2.pages):
+        writer.add_page(r1)
+        writer.add_page(r2)
+    with open(output_path, 'wb') as f:
         writer.write(f)
-    return None
+    return True
 
 
 def read_args() -> Tuple[str, str, str]:
@@ -49,8 +49,8 @@ def read_args() -> Tuple[str, str, str]:
                 break
             print(f"{pdf2_path}が存在しません。正しいパスを指定してください。")
 
+    output_path_d = f"{NOW}.pdf"
     while True:
-        output_path_d = f"{NOW}.pdf"
         output_path = input(
             f"出力ファイル名を指定してください。単にエンターを押した場合，{output_path_d}になります\n:"
         )
@@ -60,8 +60,24 @@ def read_args() -> Tuple[str, str, str]:
                 output_path = f"{output_path}.pdf"
             if os.path.exists(output_path):
                 yn = input("既に存在するパスを指定しています。データは上書きされますが、よろしいですか？(y/n):")
-                if yn == "y":
-                    break
+                if yn != "y":
+                    continue
         else:
             output_path = output_path_d
+        break
+
     return pdf1_path, pdf2_path, output_path
+
+def main():
+    pdf1_path, pdf2_path, output_path = read_args()
+    start = time.time()
+    process = pdf_cross_unitter(pdf1_path, pdf2_path, output_path)
+    end = time.time()  # end time
+    exetime = end - start
+    if process:
+        print(f"正常に処理が終了しました．時間: {exetime} s")
+    time.sleep(3)
+
+
+if __name__ == "__main__":
+    main()
