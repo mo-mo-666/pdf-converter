@@ -4,7 +4,7 @@
 
 
 ## pdf-unitter.exe
-![build](https://github.com/mo-mo-666/pdf-converter/workflows/unitter-build/badge.svg)
+[![unitter build](https://github.com/mo-mo-666/pdf-converter/actions/workflows/unitter-build.yml/badge.svg)](https://github.com/mo-mo-666/pdf-converter/actions/workflows/unitter-build.yml)
 ![release](https://img.shields.io/github/v/release/mo-mo-666/pdf-converter?include_prereleases)
 
 同じページ数のPDFを交互に結合するプログラム．
