@@ -69,14 +69,24 @@ def read_args() -> Tuple[str, str, str]:
     return pdf1_path, pdf2_path, output_path
 
 def main():
-    pdf1_path, pdf2_path, output_path = read_args()
-    start = time.time()
-    process = pdf_cross_unitter(pdf1_path, pdf2_path, output_path)
-    end = time.time()  # end time
-    exetime = end - start
-    if process:
-        print(f"正常に処理が終了しました．時間: {exetime} s")
+    b = limit_program()
+    if b:
+        pdf1_path, pdf2_path, output_path = read_args()
+        start = time.time() # start time
+        process = pdf_cross_unitter(pdf1_path, pdf2_path, output_path)
+        end = time.time()  # end time
+        exetime = end - start
+        if process:
+            print(f"正常に処理が終了しました．時間: {exetime} s")
     time.sleep(3)
+
+def limit_program() -> bool:
+    program_limit = datetime.date(2025, 10, 31)
+    today = datetime.date.today()
+    if program_limit < today:
+        print("このプログラムは作成から2年以上経過しています．アップデートを確認してください．")
+        return False
+    return True
 
 
 if __name__ == "__main__":
