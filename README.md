@@ -1,6 +1,7 @@
 # PDF Converter
 
 ![python](https://img.shields.io/badge/python-3.10-blue.svg)
+[![CodeQL](https://github.com/mo-mo-666/pdf-converter/actions/workflows/codeql.yml/badge.svg)](https://github.com/mo-mo-666/pdf-converter/actions/workflows/codeql.yml)
 
 
 ## pdf-unitter.exe
