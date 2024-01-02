@@ -18,11 +18,12 @@
     "default": {
         "pypdf": {
             "hashes": [
-                "sha256:01927771b562d4ba84939ef95b393f0179166da786c5db710d07f807c52f480d",
-                "sha256:a9b1eaf2db4c2edd93093470d33c3f353235c4a694f8a426a92a8ce77cea9eb7"
+                "sha256:67f6bb7acd8fdbcf7e7a7d5319d12b8de100f5f94538d6e5647aaec3eb7c7dde",
+                "sha256:9fab275fea57c9e5b2416035d13d867a459ebe36294a4c39a3d0bb45a7404bad"
             ],
             "index": "pypi",
-            "version": "==3.16.4"
+            "markers": "python_version >= '3.6'",
+            "version": "==3.17.0"
         }
     },
     "develop": {
@@ -57,6 +58,7 @@
                 "sha256:f9f5bcaef6122d93c54ee7a9ecb07eab5b81a7ebfb5cb99af2b2a6ff49eff62f"
             ],
             "index": "pypi",
+            "markers": "python_version < '3.13' and python_version >= '3.8'",
             "version": "==6.1.0"
         },
         "pyinstaller-hooks-contrib": {
